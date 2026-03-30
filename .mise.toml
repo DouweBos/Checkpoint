@@ -1,0 +1,21 @@
+[tools]
+swiftlint = "0.58"
+xcodegen = "2.42"
+
+[tasks.generate]
+run = "xcodegen generate"
+description = "Generate Xcode project from project.yml"
+
+[tasks.build]
+depends = ["generate"]
+run = "xcodebuild -project Checkpoint.xcodeproj -scheme Checkpoint -configuration Debug build"
+description = "Build the app"
+
+[tasks.lint]
+run = "swiftlint lint --strict Sources/"
+description = "Lint Swift source files"
+
+[tasks.run]
+depends = ["build"]
+run = "open build/Debug/Checkpoint.app"
+description = "Build and run the app"
